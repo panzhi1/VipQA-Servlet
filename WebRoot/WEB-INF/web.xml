@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.4" 
+	xmlns="http://java.sun.com/xml/ns/j2ee" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
+	http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+	
+	<servlet>
+    <servlet-name>PreviewServlet</servlet-name>
+    <servlet-class>com.strangeman.servlet.PreviewServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>PreviewServlet</servlet-name>
+  	<url-pattern>/PreviewServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>AllQuestionServlet</servlet-name>
+    <servlet-class>com.strangeman.servlet.AllQuestionServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>AllQuestionServlet</servlet-name>
+  	<url-pattern>/AllQuestionServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>AnswerServlet</servlet-name>
+    <servlet-class>com.strangeman.servlet.AnswerServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>AnswerServlet</servlet-name>
+  	<url-pattern>/AnswerServlet</url-pattern>
+  </servlet-mapping>
+   <servlet>
+    <servlet-name>QuestionInfoServlet</servlet-name>
+    <servlet-class>com.strangeman.servlet.QuestionInfoServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>QuestionInfoServlet</servlet-name>
+  	<url-pattern>/QuestionInfoServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>AskQuestionServlet</servlet-name>
+    <servlet-class>com.strangeman.servlet.AskQuestionServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>AskQuestionServlet</servlet-name>
+  	<url-pattern>/AskQuestionServlet</url-pattern>
+  </servlet-mapping>
+ 
+ 
+	
+
+  
+  
+</web-app>
