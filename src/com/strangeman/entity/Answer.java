@@ -1,4 +1,4 @@
-package com.strangeman.domain;
+package com.strangeman.entity;
 
 public class Answer {
 	private String questionId;

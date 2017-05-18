@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.strangeman.domain.Question;
+import com.strangeman.entity.Question;
+import com.strangeman.entity.QuestionMethod;
+import com.strangeman.service.Service;
 
 
 public class AskQuestionServlet extends HttpServlet {
@@ -22,6 +24,8 @@ public class AskQuestionServlet extends HttpServlet {
 	private String jsonTest;
     private Question question;
     private String questionId;
+    private Service service;
+    private QuestionMethod questionMethod;
 		public AskQuestionServlet(){
 			super();
 		}
@@ -38,17 +42,22 @@ public class AskQuestionServlet extends HttpServlet {
 			request.setCharacterEncoding("UTF-8");
 			builder=new GsonBuilder();
             gson=builder.create();
+            service=Service.getService();
+            questionMethod=new QuestionMethod();
+            
 			String questionJson=request.getParameter("question");
 			question=gson.fromJson(questionJson, Question.class);
+			System.out.println(question.getContent());
+			service.addQuestion(question.getUserId(), question.getProductId(), question.getContent());
+		    questionMethod.setQuestions(service.getQuestion(question.getProductId()));
+			//String questionId=service.addQuestion(question.getUserId(), question.getProductId(), question.getContent());
 			try{
 				
 					PrintWriter writer = null;
 			        try {
 			            writer = response.getWriter();
 
-			            questionId="123";
-			    
-			            jsonTest=gson.toJson(questionId, String.class);
+			            jsonTest=gson.toJson(questionMethod,QuestionMethod.class);
 			            writer.write(jsonTest);
 			        } catch (IOException e) {
 			            e.printStackTrace();

@@ -12,18 +12,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.strangeman.domain.Answer;
-import com.strangeman.domain.Question;
-import com.strangeman.domain.QuestionMethod;
+import com.strangeman.entity.Answer;
+import com.strangeman.entity.Question;
+import com.strangeman.entity.QuestionMethod;
+import com.strangeman.service.Service;
 
 public class AnswerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Gson gson;
 	private GsonBuilder builder;
-	private String jsonTest,jsonListTest;
+	private String jsonTest;
     private Answer answer;
-    private String answerId;
-  
+    private Service service;
+    private Question question;
 		public AnswerServlet(){
 			super();
 		}
@@ -38,12 +39,7 @@ public class AnswerServlet extends HttpServlet {
 				throws ServletException, IOException{
 			response.setContentType("text/html;charset=utf-8");
 			request.setCharacterEncoding("UTF-8");
-    
-			builder=new GsonBuilder();
-            gson=builder.create();
-            
-            String answerJson=request.getParameter("answerJson");
-            answer=gson.fromJson(answerJson,Answer.class);
+			
             
 			try{
 				
@@ -51,9 +47,14 @@ public class AnswerServlet extends HttpServlet {
 			        try {
 			            writer = response.getWriter();
                        
-			            answerId="546";
-			            
-			            jsonTest=gson.toJson(answerId,String.class);
+			            builder=new GsonBuilder();
+			            gson=builder.create();
+			            service=Service.getService();
+			            String answerJson=request.getParameter("answer");
+			            answer=gson.fromJson(answerJson,Answer.class);
+			            service.addAnswer(answer.getQuestionId(), answer.getUserId(), answer.getContent());
+			            question=service.getAQuestion(answer.getQuestionId());
+			            jsonTest=gson.toJson(question,Question.class);
 			            writer.write(jsonTest);
 			        } catch (IOException e) {
 			            e.printStackTrace();

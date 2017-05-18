@@ -5,15 +5,14 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.lang.reflect.Type;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
-import com.strangeman.domain.*;
+import com.google.gson.GsonBuilder; 
+import com.strangeman.entity.*;
+import com.strangeman.service.Service;
 
 
 public class PreviewServlet extends HttpServlet {
@@ -23,7 +22,7 @@ private Gson gson;
 private GsonBuilder builder;
 private String jsonTest;
 private QuestionPreview preview;
-
+private Service service;
 
 	public PreviewServlet(){
 		super();
@@ -45,8 +44,11 @@ private QuestionPreview preview;
 				PrintWriter writer = null;
 		        try {
 		            writer = response.getWriter();
-		            
+		            String productId=request.getParameter("productId");
+		            System.out.println(productId);
 		            preview=new QuestionPreview(60,"好用吗",5,"质量好吗",6);
+		            service=Service.getService();
+//		            preview=service.getPreview(productId);
 		            builder=new GsonBuilder();
 		            gson=builder.create();
 		            

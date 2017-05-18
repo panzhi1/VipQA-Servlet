@@ -12,20 +12,20 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.strangeman.entity.Order;
+import com.strangeman.entity.Product;
 import com.strangeman.entity.Question;
 import com.strangeman.entity.QuestionMethod;
 import com.strangeman.service.Service;
 
-public class AllQuestionServlet extends HttpServlet{
+public class AllOrderServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	private Gson gson;
 	private GsonBuilder builder;
 	private String jsonTest;
-	private QuestionMethod questionMethod;
 	private Service service;
-	private Question question;
-	private List<Question> questionList;
-		public AllQuestionServlet(){
+	private List<Order> orders;
+		public AllOrderServlet(){
 			super();
 		}
 		public void  destroy(){
@@ -39,8 +39,6 @@ public class AllQuestionServlet extends HttpServlet{
 				throws ServletException, IOException{
 			response.setContentType("text/html;charset=utf-8");
 			request.setCharacterEncoding("UTF-8");
-		    //String productId=request.getParameter("productId");
-		    //System.out.println(productId);
 			try{
 				
 					PrintWriter writer = null;
@@ -49,19 +47,12 @@ public class AllQuestionServlet extends HttpServlet{
 
 			            builder=new GsonBuilder();
 			            gson=builder.create();
-			            questionList=new ArrayList<>();
-//			            service=Service.getService();
-			            questionMethod=new QuestionMethod();
-			            System.out.println(1);
-//                        questionMethod.setQuestions(service.getQuestion(productId));
-			            question=new Question("123","456","789","852","798");
-			            System.out.println(2);
-			            questionList.add(question);
-			            System.out.println(3);
-			            questionMethod.setQuestions(questionList);
-			            System.out.println(4);
-			            jsonTest=gson.toJson(questionMethod, QuestionMethod.class);
-			            System.out.println(5);
+		                service=Service.getService();
+                        
+		                String userId=request.getParameter("userId");
+			            orders=service.getOrders(userId);
+			            jsonTest=gson.toJson(orders, List.class);
+			          
 			            /**
 			             * –¥»Îjson
 			             */
